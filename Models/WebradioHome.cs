@@ -25,6 +25,7 @@
 using System;
 using System.IO;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Xml.Serialization;
 using System.Linq;
 using MediaPortal.Common;
@@ -43,7 +44,10 @@ namespace Webradio.Models
     public const string STREAM_ID = "StreamID";
 
     public static string CurrentStreamLogo = string.Empty;
-    public string File = ServiceRegistration.Get<IPathManager>().GetPath("<DATA>") + "\\Webradio\\WebradioSender.xml";
+
+    public string DefaultFile =
+      Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"Defaults\WebradioSender.xml");
+    public string UserFile = ServiceRegistration.Get<IPathManager>().GetPath("<DATA>") + "\\Webradio\\WebradioSender.xml";
 
     public static MyStream SelectedStream = new MyStream();
     public static ItemsList AllRadioStreams = new ItemsList();
@@ -52,7 +56,10 @@ namespace Webradio.Models
 
     public WebradioHome()
     {
-      StreamList = MyStreams.Read(File).StreamList;
+      if (!File.Exists(UserFile))
+        File.Copy(DefaultFile, UserFile);
+
+      StreamList = MyStreams.Read(UserFile).StreamList;
       FillItemList(StreamList);
     }
 
@@ -129,7 +136,7 @@ namespace Webradio.Models
       {
         f.PlayCount += 1;
       }
-      MyStreams.Write(File, new MyStreams(StreamList));
+      MyStreams.Write(UserFile, new MyStreams(StreamList));
     }
 
     /// <summary>
