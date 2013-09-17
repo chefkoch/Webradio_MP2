@@ -49,12 +49,13 @@
     <RunPostBuildEvent>Always</RunPostBuildEvent>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Bass.Net, Version=2.4.10.1, Culture=neutral, PublicKeyToken=b7566c273e6ef480, processorArchitecture=MSIL" />
+    <Reference Include="Bass.Net">
+      <HintPath>$(SolutionDir)..\Packages\BASS.NET.2.4.10.1\lib\net40\Bass.Net.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Dialogues\WebradioDlgLoadUpdate.cs" />
@@ -195,6 +196,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="build.targets" />
+    <None Include="NuGet.Config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="build.targets" />
