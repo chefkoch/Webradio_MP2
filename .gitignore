@@ -1,8 +1,16 @@
 #################
+## Custom files
+#################
+MP2.user.props
+*.patch
+
+#################
 ## Binaries
 #################
 *.exe
-
+*.dll
+# NuGet packages folder
+packages/
 
 #################
 ## Eclipse
