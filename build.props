@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!--
+  This file helps to define various properties like paths to the MP2 source directory.
+  
+  This can be useful if the project is not being built from within the MP2-Client.sln,
+  but the paths to the actual MP2 projects might differ on various developers' systems.
+
+  ..:: MP2.user.props ::..
+  In general you can overwrite the default properties, by defining your own properties
+  within a file called "MP2.user.props".
+
+  The file "MP2.user.props" should NOT be committed to git.
+  
+  The file "MP2.user.props" is imported from various paths in the following order:
+      - $(MSBuildThisFileDirectory)\MP2.user.props (the same folder like this file)
+      - %userprofile%\MP2.user.props , i.e. C:\Users\JonDoe\MP2.user.props
+  -->
+  <Import Project="$(MSBuildThisFileDirectory)MP2.user.props" Condition="Exists('$(MSBuildThisFileDirectory)MP2.user.props')" />
+  <Import Project="$(HOMEDRIVE)$(HOMEPATH)MP2.user.props" Condition="Exists('$(HOMEDRIVE)$(HOMEPATH)MP2.user.props')" />
+
+  <PropertyGroup>
+    <!-- Set default MP2SourceRoot if not defined, yet -->
+    <MP2SourceRoot Condition="$(MP2SourceRoot) == ''">$(MSBuildThisFileDirectory)..\..\MediaPortal-2-FEAT_BassStreamInfos\</MP2SourceRoot>
+
+    <!-- Overwrite MP2SourceRoot if SolutionName is 'MP2-Client' -->
+    <MP2SourceRoot Condition="$(SolutionName) == 'MP2-Client'">$(SolutionDir)..\..\</MP2SourceRoot>
+  </PropertyGroup>
+</Project>
