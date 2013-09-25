@@ -20,6 +20,9 @@
   <Import Project="$(HOMEDRIVE)$(HOMEPATH)\MP2.user.props" Condition="Exists('$(HOMEDRIVE)$(HOMEPATH)\MP2.user.props')" />
 
   <PropertyGroup>
+    <!-- Set SolutionDir to parent dir if *.csproj is compiled directly -->
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">$(MSBuildProjectDirectory)\..\</SolutionDir>
+
     <!-- Set default MP2SourceRoot if not defined, yet -->
     <MP2SourceRoot Condition="$(MP2SourceRoot) == ''">D:\MediaPortal-2-FEAT_BassStreamInfos\</MP2SourceRoot>
 

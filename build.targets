@@ -3,6 +3,7 @@
 
   <PropertyGroup>
     <PluginDestination>$(SolutionDir)..\Bin\$(SolutionName)\$(OutDir)Plugins\$(ProjectName)\</PluginDestination>
+    <PluginDestination Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">$(ProjectDir)bin\Package\</PluginDestination>
   </PropertyGroup>
 
   <ItemGroup>
